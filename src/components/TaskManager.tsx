@@ -1,6 +1,6 @@
 
 import { Box, Typography } from '@material-ui/core';
-import { sortBy, toLower } from 'lodash';
+import { reverse, sortBy, toLower } from 'lodash';
 import React, { useMemo, useState } from 'react';
 import { SortType, Task, TaskStatus } from '../entities';
 import { Filters } from './Filters';
@@ -39,6 +39,10 @@ export const TaskManager: React.FC = () => {
 
   const formattedTasks = useMemo(() => {
     let sortedTasks = sortBy(tasks, sortTypeToField[sortType]);
+
+    if (sortType === SortType.Priority) {
+      sortedTasks = reverse(sortedTasks);
+    }
 
     if (filterBy !== undefined) {
       sortedTasks = sortedTasks.filter(task => task.status === filterBy);

@@ -22,30 +22,34 @@ export const TasksList: React.FC<TasksListProps> = (props) => {
           key={task.id}
           display="flex"
           alignItems="center"
-          justifyContent="center"
+          justifyContent="space-between"
           borderRadius={8}
+          width={800}
+          maxWidth="100%"
           p={1}
           bgcolor={editedTaskId === task.id ? theme.palette.primary.light : theme.palette.common.white}
         >
-          <Box>
-            <Typography variant="h6">
+          <Typography variant="h6">
+            <Box width={300} overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" textAlign="left">
               {task.description}
-            </Typography>
+            </Box>
+          </Typography>
+          <Box display="flex" justifyContent="center">
+            <Box mr={1} borderRadius={4} p={1} bgcolor={theme.palette.info.main} color={theme.palette.info.contrastText}>
+              {priorityToLabel[task.priority]}
+            </Box>
+            <Box borderRadius={4} p={1} bgcolor={theme.palette.warning.main} color={theme.palette.warning.contrastText}>
+              {statusToLabel[task.status]}
+            </Box>
           </Box>
-          <Box mx={2} borderRadius={4} p={1} bgcolor={theme.palette.info.main} color={theme.palette.info.contrastText}>
-            {priorityToLabel[task.priority]}
-          </Box>
-          <Box borderRadius={4} p={1} bgcolor={theme.palette.warning.main} color={theme.palette.warning.contrastText}>
-            {statusToLabel[task.status]}
-          </Box>
-          <Box ml={3}>
+          <Box>
             <IconButton onClick={() => onEditTask(task.id)}>
               <EditOutlinedIcon fontSize="small" />
             </IconButton>
+            <IconButton onClick={() => onDeleteTask(task.id)}>
+              <DeleteOutlineOutlinedIcon fontSize="small" />
+            </IconButton>
           </Box>
-          <IconButton onClick={() => onDeleteTask(task.id)}>
-            <DeleteOutlineOutlinedIcon fontSize="small" />
-          </IconButton>
         </Box>
       ))}
     </Box>
