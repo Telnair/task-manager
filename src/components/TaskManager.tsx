@@ -2,16 +2,11 @@
 import { Box, Typography } from '@material-ui/core';
 import { reverse, sortBy, toLower } from 'lodash';
 import React, { useMemo, useState } from 'react';
+import { priorityToNextPriority, sortTypeToField, statusToNextStatus } from '../consts';
 import { SortType, Task, TaskStatus } from '../entities';
 import { Filters } from './Filters';
 import { TaskForm } from './TaskForm';
 import { TasksList } from './TasksList';
-
-const sortTypeToField: Record<SortType, string> = {
-  [SortType.Date]: 'createdAt',
-  [SortType.Priority]: 'priority',
-  [SortType.Status]: 'status',
-}
 
 export const TaskManager: React.FC = () => {
   const [ tasks, setTasks ] = useState<Task[]>([]);
@@ -35,6 +30,20 @@ export const TaskManager: React.FC = () => {
 
   const handleTaskDeletion = (taskId: string) => {
     setTasks(prev => prev.filter(task => task.id !== taskId));
+  }
+
+  const handleStatusToggle = (updatedTask: Task) => {
+    setTasks(prev => prev.map(task => task.id === updatedTask.id ? ({
+      ...task,
+      status: statusToNextStatus[task.status],
+    }) : task))
+  }
+
+  const handlePriorityToggle = (updatedTask: Task) => {
+    setTasks(prev => prev.map(task => task.id === updatedTask.id ? ({
+      ...task,
+      priority: priorityToNextPriority[task.priority],
+    }) : task))
   }
 
   const formattedTasks = useMemo(() => {
@@ -65,7 +74,7 @@ export const TaskManager: React.FC = () => {
         </Typography>
       </Box>
       <TaskForm onSubmit={editedTaskId ? handleUpdateTask : handleNewTask} editedTask={editedTask} />
-      <Filters 
+      <Filters
         sortType={sortType}
         searchStr={searchStr}
         filterBy={filterBy}
@@ -73,11 +82,13 @@ export const TaskManager: React.FC = () => {
         setSearchStr={setSearchStr}
         setSortType={setSortType}
       />
-      <TasksList 
-        tasks={formattedTasks} 
-        onEditTask={handleTaskEdit} 
-        onDeleteTask={handleTaskDeletion} 
-        editedTaskId={editedTaskId} 
+      <TasksList
+        tasks={formattedTasks}
+        onEditTask={handleTaskEdit}
+        onDeleteTask={handleTaskDeletion}
+        editedTaskId={editedTaskId}
+        onToggleStatus={handleStatusToggle}
+        onTogglePriority={handlePriorityToggle}
       />
     </Box>
   );

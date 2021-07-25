@@ -37,3 +37,21 @@ export const sortTypeOptions: Array<SelectOption<SortType>> = sortTypes.map(p =>
   label: sortTypeToLabel[p],
   value: p,
 }));
+
+export const sortTypeToField: Record<SortType, string> = {
+  [SortType.Date]: 'createdAt',
+  [SortType.Priority]: 'priority',
+  [SortType.Status]: 'status',
+};
+
+export const statusToNextStatus: Record<TaskStatus, TaskStatus> = {
+  [TaskStatus.Backlog]: TaskStatus.InProgress,
+  [TaskStatus.InProgress]: TaskStatus.Done,
+  [TaskStatus.Done]: TaskStatus.Backlog,
+}
+
+export const priorityToNextPriority: Record<TaskPriority, TaskPriority> = {
+  [TaskPriority.Low]: TaskPriority.Medium,
+  [TaskPriority.Medium]: TaskPriority.High,
+  [TaskPriority.High]: TaskPriority.Low,
+}
