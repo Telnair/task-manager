@@ -41,6 +41,7 @@ export const TasksList: React.FC<TasksListProps> = (props) => {
               mr={1}
               borderRadius={4}
               p={1}
+              width={100}
               bgcolor={theme.palette.info.main}
               color={theme.palette.info.contrastText}
               onClick={() => onTogglePriority(task)}
@@ -51,6 +52,7 @@ export const TasksList: React.FC<TasksListProps> = (props) => {
             <Box
               borderRadius={4}
               p={1}
+              width={100}
               bgcolor={theme.palette.warning.main}
               color={theme.palette.warning.contrastText}
               onClick={() => onToggleStatus(task)}
