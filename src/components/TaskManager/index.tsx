@@ -1,9 +1,9 @@
 
 import { Box, Typography } from '@material-ui/core';
-import { reverse, sortBy, toLower } from 'lodash';
+import { reverse, sortBy } from 'lodash';
 import React, { useMemo, useState } from 'react';
-import { priorityToNextPriority, sortTypeToField, statusToNextStatus } from '../consts';
-import { SortType, Task, TaskStatus } from '../entities';
+import { priorityToNextPriority, sortTypeToField, statusToNextStatus } from '../../consts';
+import { SortType, Task, TaskStatus } from '../../entities';
 import { Filters } from './Filters';
 import { TaskForm } from './TaskForm';
 import { TasksList } from './TasksList';
@@ -36,14 +36,14 @@ export const TaskManager: React.FC = () => {
     setTasks(prev => prev.map(task => task.id === updatedTask.id ? ({
       ...task,
       status: statusToNextStatus[task.status],
-    }) : task))
+    }) : task));
   }
 
   const handlePriorityToggle = (updatedTask: Task) => {
     setTasks(prev => prev.map(task => task.id === updatedTask.id ? ({
       ...task,
       priority: priorityToNextPriority[task.priority],
-    }) : task))
+    }) : task));
   }
 
   const formattedTasks = useMemo(() => {
@@ -58,7 +58,8 @@ export const TaskManager: React.FC = () => {
     }
 
     if (searchStr) {
-      sortedTasks = sortedTasks.filter(task => toLower(task.description).startsWith(toLower(searchStr)))
+      const regex = new RegExp(searchStr, 'ig');
+      sortedTasks = sortedTasks.filter(task => task.description.match(regex) !== null);
     }
 
     return sortedTasks;

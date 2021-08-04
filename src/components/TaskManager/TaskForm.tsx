@@ -2,8 +2,8 @@ import { Box, Button, FormControl, MenuItem, Select, TextField } from '@material
 import { uniqueId } from 'lodash';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { priorityOptions, statusOptions, TASK_ID_PREFIX } from '../consts';
-import { Task, TaskPriority, TaskStatus } from '../entities';
+import { priorityOptions, statusOptions, TASK_ID_PREFIX } from '../../consts';
+import { Task, TaskPriority, TaskStatus } from '../../entities';
 
 interface TaskFormProps {
   onSubmit: (task: Task) => void;
@@ -70,7 +70,6 @@ export const TaskForm: React.FC<TaskFormProps> = (props) => {
       onSubmit={handleSubmit}
     >
       <TextField
-        id="standard-basic"
         variant="outlined"
         label="Description"
         value={description}

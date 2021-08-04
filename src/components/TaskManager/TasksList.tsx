@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme, IconButton } from '@material-ui/core';
 import React from 'react';
-import { priorityToLabel, statusToLabel } from '../consts';
-import { Task } from '../entities';
+import { priorityToLabel, statusToLabel } from '../../consts';
+import { Task } from '../../entities';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 

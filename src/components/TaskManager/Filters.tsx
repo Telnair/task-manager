@@ -1,7 +1,7 @@
 import { Box, FormControl, MenuItem, Select, TextField, Typography } from '@material-ui/core';
 import React from 'react';
-import { sortTypeOptions, statusOptions } from '../consts';
-import { SortType, TaskStatus } from '../entities';
+import { sortTypeOptions, statusOptions } from '../../consts';
+import { SortType, TaskStatus } from '../../entities';
 
 interface FiltersProps {
   filterBy: TaskStatus | undefined;
@@ -40,7 +40,6 @@ export const Filters: React.FC<FiltersProps> = (props) => {
         </Typography>
       </Box>
       <TextField
-        id="standard-basic"
         variant="outlined"
         label="Search"
         value={searchStr}
